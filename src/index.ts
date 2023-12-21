@@ -26,5 +26,5 @@ io.on("connection", (socket:any) => {
 });
 
 server.listen(3001, () => {
-    console.log("SERVER IS RUNNING");
+    console.log("RUNNING");
 });
