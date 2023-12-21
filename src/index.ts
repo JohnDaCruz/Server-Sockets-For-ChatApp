@@ -1,5 +1,4 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import { Server } from "socket.io";
 import {createServer} from "node:http";
 
