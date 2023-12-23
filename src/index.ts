@@ -5,25 +5,28 @@ import {createServer} from "node:http";
 const app = express();
 const server = createServer(app);
 
+const URL = process.env.URL_SITE
+const PORT = process.env.PORT ||3000
+
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: URL,
         methods: ["GET", "POST"],
     },
 });
 
-io.on("connection", (socket:any) => {
+io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
 
-    socket.on("join_room", (data:any) => {
+    socket.on("join_room", (data) => {
         socket.join(data);
     });
 
-    socket.on("send_message", (data:any) => {
+    socket.on("send_message", (data) => {
         socket.to(data.room).emit("receive_message", data);
     });
 });
 
-server.listen(3001, () => {
+server.listen(PORT, () => {
     console.log("SERVER IS RUNNING");
 });
