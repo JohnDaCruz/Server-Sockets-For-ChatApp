@@ -10,7 +10,7 @@ const PORT = process.env.PORT ||3000
 
 const io = new Server(server, {
     cors: {
-        origin: URL,
+        origin: ["https://chat-app-nextjs93105.netlify.app/account","https://chat-app-nextjs93105.netlify.app"],
         methods: ["GET", "POST"],
     },
 });
