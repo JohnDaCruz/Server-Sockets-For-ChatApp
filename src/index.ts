@@ -22,8 +22,8 @@ io.on("connection", (socket) => {
         socket.join(data);
     });
 
-    socket.on("send_message", (data) => {
-        socket.to(data.room).emit("receive_message", data);
+    socket.on("send_message", ({ message, room, sender }) => {
+        io.to(room).emit("receive_message", { message, sender });
     });
 });
 
