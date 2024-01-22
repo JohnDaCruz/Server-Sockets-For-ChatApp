@@ -20,24 +20,24 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     console.log(`Usuário conectado: ${socket.id}`);
 
-    socket.on("join_room", (sala) => {
+    socket.on("disconnect", data=> {
+        console.log(`Socket: ${socket.id} saiu`)
+    })
+
+    socket.on("join_room", sala => {
         socket.join(sala);
         console.log(`Socket: ${socket.id} na sala ${sala}`)
     });
 
-    socket.on("send_message", (data) => {
-        socket.to(data.room).emit("receive_message", data);
+    socket.on("send_message", data => {
+        io.to(data.room).emit("receive_message", data);
         const {sender, message, room} = data
-        console.log(`Socket: ${socket.id} Info:{
+        console.log(`Socket: ${socket.id},  Info:{
         sender:${sender},
         message:${message},
         room:${room}
         }`)
     });
-
-    socket.on('disconnect', (data) =>{
-        console.log(`Socket: ${socket.id} saiu`)
-    })
 });
 
 server.listen(PORT, () => {
